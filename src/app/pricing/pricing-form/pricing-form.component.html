@@ -1,0 +1,51 @@
+<div fxLayout="row" fxLayoutAlign="center center">
+  <form class="pricing-form" [formGroup]="pricingForm" (ngSubmit)="save()">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Pricing</mat-card-title>
+      </mat-card-header>
+    
+      <div fxLayout="column" fxLayoutAlign="space-around center">
+        <mat-card-content>
+          <div formArrayName="items" 
+            class="item-list" 
+            cdkDropList
+            (cdkDropListDropped)="dropItem($event)"
+          >
+            <div *ngFor="let item of items.controls; let i=index" 
+              [formGroupName]="i" 
+              class="item-box"
+              cdkDrag
+            >
+              <mat-icon>drag_indicator</mat-icon>
+  
+              <mat-form-field appearance="outline">
+                <mat-label>Item Title</mat-label>
+                <input type="text" matInput formControlName="title">
+              </mat-form-field>
+  
+              <mat-form-field appearance="outline">
+                <mat-label>Description</mat-label>
+                <input type="text" matInput formControlName="description">
+              </mat-form-field>
+  
+              <mat-form-field appearance="outline">
+                <mat-label>Price</mat-label>
+                <input type="text" matInput formControlName="price">
+              </mat-form-field>
+  
+              <button type="button" mat-icon-button color="primary" (click)="removeItem(i)">
+                <mat-icon>close</mat-icon>
+              </button>
+            </div>
+          </div>
+        </mat-card-content>
+      
+        <mat-card-actions fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="8px">
+          <button type="button" mat-raised-button color="primary" (click)="addItem()">Add Item</button>
+          <button type="submit" mat-raised-button color="accent">Save</button>
+        </mat-card-actions>
+      </div>
+    </mat-card>
+  </form>
+</div>
